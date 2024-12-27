@@ -13,7 +13,6 @@ typedef struct s_game {
     int tile_size;
 } t_game;
 
-
 int check_map(char **map)
 {
     int rows = 0;
@@ -57,6 +56,27 @@ int check_map(char **map)
         return (printf("extra player or extra exit or 0collectible"), 0);
     return (1);
 
+}
+
+int find_path(char **map, int x_pos, int y_pos, char target, char check)
+{
+
+    if (map[x_pos][y_pos] == check || map[x_pos][y_pos] == '1')
+        return 0;
+    if (map[x_pos][y_pos] == 'E')
+        return 1;
+    map[x_pos][y_pos] = check;
+
+    if (find_path(map, x_pos + 1, y_pos, target, check)) // south
+        return 1; 
+    if (find_path(map, x_pos - 1, y_pos, target, check)) // north
+        return 1; 
+    if (find_path(map, x_pos, y_pos + 1, target, check)) // east
+        return 1; 
+    if (find_path(map, x_pos, y_pos - 1, target, check)) // west
+        return 1;
+
+    return 0;
 }
 
 int close_window(void *param)
@@ -103,7 +123,7 @@ void render_map(t_game *game, char **map, int img_width, int img_height)
             else if (map[i][j] == 'P')
             {
                 mlx_put_image_to_window(game->mlx, game->window, game->ground, xpos, ypos);
-                mlx_put_image_to_window(game->mlx, game->window, game->test, xpos, ypos);
+                //mlx_put_image_to_window(game->mlx, game->window, game->test, xpos, ypos);
             }
         }
     }
@@ -111,15 +131,24 @@ void render_map(t_game *game, char **map, int img_width, int img_height)
 
 int main()
 {
+    // char *map[] = {
+    //     "1111111111111",
+    //     "10010000000C1",
+    //     "1000011111001",
+    //     "1P0011E000001",
+    //     "1111111111111",
+    //     NULL
+    // };
     char *map[] = {
-        "1111111111111",
-        "10010000000C1",
-        "1000011111001",
-        "1P0011E000001",
-        "1111111111111",
-        "1111111111111",
+        "1111111111111111111111111111111111",
+        "1E0000000000000C00000C000000000001",
+        "1110010100100000101001000000010101",
+        "1010010110101010001001000000010101",
+        "1P0000000C00C0000000000000000000C1",
+        "1111111111111111111111111111111111",
         NULL
     };
+
     t_game game;
     char	*ground_path = "/home/mgamraou/Downloads/grass.xpm";
     char	*wall_path = "/home/mgamraou/Downloads/complexgrass.xpm";
@@ -131,10 +160,26 @@ int main()
     game.ground = mlx_xpm_file_to_image(game.mlx, ground_path, &img_width, &img_height);
     game.test = mlx_xpm_file_to_image(game.mlx, test, &img_width, &img_height);
     game.wall = mlx_xpm_file_to_image(game.mlx, wall_path, &img_width, &img_height);
-    game.window = mlx_new_window(game.mlx, 2000, 2000, "2D Game Map");
+    game.window = mlx_new_window(game.mlx, 4000, 4000, "2D Game Map");
 
     if (check_map(map) == 0)
             exit(0);
+    int rows = 0;
+    int cols = strlen(map[0]);
+    while (map[rows] != NULL)
+        rows++;
+    char **map_copy = malloc(rows * sizeof(char *));
+    for (int i = 0; i < rows; i++)
+    {
+        map_copy[i] = strdup(map[i]);
+    }
+    if (find_path(map_copy, 4, 2, '0', '2') == 0)
+        exit(0);
+    for (int i = 0; i < rows; i++)
+    {
+        free(map_copy[i]);
+    }
+    free(map_copy);
     render_map(&game, map, img_width, img_height);
 
     mlx_key_hook(game.window, key_press, NULL);
