@@ -104,6 +104,7 @@ int mlx_loop_end (void *mlx_ptr);
 **  Usually asked...
 */
 
+
 int	mlx_string_put(void *mlx_ptr, void *win_ptr, int x, int y, int color,
 		       char *string);
 void	mlx_set_font(void *mlx_ptr, void *win_ptr, char *name);
