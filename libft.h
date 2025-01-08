@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:25:04 by mgamraou          #+#    #+#             */
-/*   Updated: 2024/11/11 09:45:43 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/08 10:09:52 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,55 +18,11 @@
 # include <unistd.h>
 # include <stdint.h>
 
-# define ESC_KEY 65307
-
-typedef struct s_data
-{
-	int	rows;
-	int	cols;
-	int	exit;
-	int	player;
-	int	collectibles;
-}	t_data;
-
-typedef struct s_game
-{
-	void	*mlx;
-	void	*ground;
-	void	*wall;
-	void	*player;
-	void	*vent;
-	void	*window;
-	void	*exit;
-	void	*enemy;
-	char	**map;
-	int		p_xpos;
-	int		p_ypos;
-	int		img_width;
-	int		img_height;
-	int		count;
-}	t_game;
-
-typedef struct s_npos
-{
-	int		n_ypos;
-	int		n_xpos;
-}	t_npos;
-
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }	t_list;
-
-int		map_manager(char **map, t_data *data);
-int		check_map_components(char **map, t_data *data);
-int		is_surrounded_bywalls(char **map, t_data *data);
-int		is_rectangular(char **map, t_data *data);
-int		find_path(char **map, int x_pos, int y_pos, char target);
-void	render_map(t_game *game, char **map, int img_width, int img_height);
-void	find_player(char **map, t_game *game);
-int		key_press(int keycode, t_game *game);
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
