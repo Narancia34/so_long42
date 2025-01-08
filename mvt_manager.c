@@ -15,7 +15,6 @@
 
 void	wasd_move(int keycode, t_game *game, t_npos *npos)
 {
-
 	npos->n_xpos = game->p_xpos;
 	npos->n_ypos = game->p_ypos;
 	if (keycode == ESC_KEY)
@@ -30,30 +29,32 @@ void	wasd_move(int keycode, t_game *game, t_npos *npos)
 		npos->n_xpos++;
 }
 
-// int	is_exit_valid(t_game *game)
-// {
-// 	int		j;
-// 	int		i;
+int	is_exit_valid(t_game *game)
+{
+	int		j;
+	int		i;
 
-// 	while (game->map[i])
-// 		{
-// 			j = 0;
-// 			while (game->map[i][j])
-// 			{
-// 				if (game->map[i][j] == 'C')
-// 					return (1);
-// 				j++;
-// 			}
-// 			i++;
-// 		}
-// }
+	i = 0;
+	while (game->map[i])
+	{
+		j = 0;
+		while (game->map[i][j])
+		{
+			if (game->map[i][j] == 'C')
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	key_press(int keycode, t_game *game)
 {
 	int		j;
 	int		i;
-	t_npos npos;
-	
+	t_npos	npos;
+
 	wasd_move(keycode, game, &npos);
 	if (game->map[npos.n_ypos][npos.n_xpos] == '1')
 		return (1);
@@ -61,27 +62,17 @@ int	key_press(int keycode, t_game *game)
 		mlx_clear_window(game->mlx, game->window);
 	else if (game->map[npos.n_ypos][npos.n_xpos] == 'E')
 	{
-		i = 0;
-		while (game->map[i])
-		{
-			j = 0;
-			while (game->map[i][j])
-			{
-				if (game->map[i][j] == 'C')
-					return (1);
-				j++;
-			}
-			i++;
-		}
+		if (is_exit_valid(game) == 1)
+			return (1);
 		mlx_clear_window(game->mlx, game->window);
 	}
 	else
 	{
 		game->map[game->p_ypos][game->p_xpos] = '0';
 		game->map[npos.n_ypos][npos.n_xpos] = 'P';
-		game->count++;
 		mlx_clear_window(game->mlx, game->window);
 		render_map(game, game->map, game->img_width, game->img_width);
+		game->count++;
 		game->p_xpos = npos.n_xpos;
 		game->p_ypos = npos.n_ypos;
 	}

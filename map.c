@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <fcntl.h>
 #include "get_next_line.h"
 #include "libft.h"
+#include <fcntl.h>
 
 // typedef struct s_game {
 // 	void	*mlx;
@@ -149,11 +149,6 @@
 // 	}
 // }
 
-int	close_window(void *param)
-{
-	(void)param;
-	exit(0);
-}
 
 // int key_press(int keycode, t_game *game)
 // {
@@ -214,28 +209,68 @@ int	close_window(void *param)
 // 	}
 // }
 
-
-int main(const char *argc)
+int	close_window(void *param)
 {
-	char *map[] = {
-		"1111111111111111111111111111111111",
-		"10000001C0000000010C00100001000C01",
-		"1000000000000001010000000011000011",
-		"1000000000000001001C1C000000000001",
-		"100001010000110000000010001C010001",
-		"1C000000010000C0000C00000000000001",
-		"101000010000000000000000000C100011",
-		"100000C000000000000000000000100001",
-		"1010CC00000000000000100000000000C1",
-		"1C10100000000001000010000010000111",
-		"1000000000010001000010100010000001",
-		"1000C00000000000000000C00000000101",
-		"1C0010010C01C101000000000P00010001",
-		"10000000000000000000C0E00001000001",
-		"100C0000C0000100000000000001000CC1",
-		"1111111111111111111111111111111111",
-		NULL
-	};
+	(void)param;
+	exit(0);
+}
+
+int	check_file(char *name)
+{
+	char	*extension;
+	int		i;
+
+	i = 0;
+	extension = ft_strchr(name, '.');
+	while (extension[i])
+	{
+		
+	}
+}
+
+char	**get_map(char *name)
+{
+	int	fd;
+	int i;
+	char	*line;
+	char	**map;
+	char	*file;
+
+	file = ft_strdup("");
+	fd = open(name, O_RDWR);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		file = ft_strjoin(file, line);
+	}
+	map = ft_split(file, '\n');
+	return (map);
+}
+
+
+int main(int ac, char **av)
+{
+	// char *map[] = {
+	// 	"1111111111111111111111111111111111",
+	// 	"1000000100000000010000100001000001",
+	// 	"1000000000000001010000000011000011",
+	// 	"1000000000000001001010000000000001",
+	// 	"1000010100001100000000100010010001",
+	// 	"1000000001000000000000000000000001",
+	// 	"1010000100000000000000000000100011",
+	// 	"1000000000000000000000000000100001",
+	// 	"1010000000000000000010000000000001",
+	// 	"1010100000000001000010000010000111",
+	// 	"1000000000010001000010100010000001",
+	// 	"1000000000000000000000000000000101",
+	// 	"1000100100010101000000000P00010001",
+	// 	"10000000000000000000C0E00001000001",
+	// 	"1000000000000100000000000001000001",
+	// 	"1111111111111111111111111111111111",
+	// 	NULL
+	// };
 
 	t_game game;
 	t_data data;
@@ -244,30 +279,32 @@ int main(const char *argc)
 	char    *palyer_path = "/home/mgamraou/Downloads/player_1_.xpm";
 	char	*vent_path = "/home/mgamraou/Downloads/ventsus-1.xpm";
 	char	*exit_path = "/home/mgamraou/Downloads/exit-1.xpm";
-
+	//char	**map = get_map(av[1]);
+	
 	game.mlx = mlx_init();
+	game.map = get_map(av[1]);
 	game.ground = mlx_xpm_file_to_image(game.mlx, ground_path, &game.img_width, &game.img_height);
 	game.vent = mlx_xpm_file_to_image(game.mlx, vent_path, &game.img_width, &game.img_height);
 	game.exit = mlx_xpm_file_to_image(game.mlx, exit_path, &game.img_width, &game.img_height);
 	game.wall = mlx_xpm_file_to_image(game.mlx, wall_path, &game.img_width, &game.img_height);
 	game.player = mlx_xpm_file_to_image(game.mlx, palyer_path, &game.img_width, &game.img_height);
-	game.window = mlx_new_window(game.mlx, 2000, 2000, "2D Game Map");
+	//game.window = mlx_new_window(game.mlx, 2000, 2000, "2D Game Map");
+	game.count = 0;
 
 	
-	if (map_manager(map, &data) == 0)
+	if (map_manager(game.map, &data) == 0)
 		exit(0);
 	int rows = 0;
-	int cols = strlen(map[0]);
-	while (map[rows] != NULL)
+	int cols = strlen(game.map[0]);
+	while (game.map[rows] != NULL)
 		rows++;
+	game.window = mlx_new_window(game.mlx, cols*game.img_width, rows*game.img_height, "amongus");
 	char **map_copy = malloc(rows * sizeof(char *));
-	game.map = malloc(rows * sizeof(char *));
 	for (int i = 0; i < rows; i++)
 	{
-		map_copy[i] = strdup(map[i]);
-		game.map[i] = strdup(map[i]);
+		map_copy[i] = strdup(game.map[i]);
 	}
-	find_player(map, &game);
+	find_player(game.map, &game);
 	if (find_path(map_copy, game.p_ypos, game.p_xpos, '0') == 0)
 		exit(0);
 	for (int i = 0; i < rows; i++)

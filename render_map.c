@@ -57,5 +57,6 @@ void	render_map(t_game *game, char **map, int img_width, int img_height)
 		i++;
 	}
 	count = ft_itoa(game->count);
+	count = ft_strjoin("moves : ", count);
 	mlx_string_put(game->mlx, game->window, 20, 20, 0xFFFFFF, count);
 }
