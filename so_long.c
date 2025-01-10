@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:12:23 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/08 10:13:06 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:33:09 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <stdio.h>
 #include "get_next_line.h"
 #include "libft.h"
-#include "so_long.h"
 #include <fcntl.h>
+#include "so_long.h"
 
 int	close_window(void *param)
 {
@@ -29,13 +29,11 @@ int	check_file(char *name)
 {
 	char	*extension;
 	int		i;
-
-	i = 0;
+	
 	extension = ft_strchr(name, '.');
-	while (extension[i])
-	{
-		
-	}
+	if (ft_memcmp(extension, ".ber", 5) == 0)
+		return (1);
+	return (0);
 }
 
 char	**get_map(char *name)
@@ -48,6 +46,11 @@ char	**get_map(char *name)
 
 	file = ft_strdup("");
 	fd = open(name, O_RDWR);
+	if (fd < 0)
+	{
+		printf("ERROR:\nInvalid file name!!");
+		exit(0);
+	}
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -64,22 +67,27 @@ int main(int ac, char **av)
 {
 	t_game game;
 	t_data data;
+	t_keys	keys = {0,0,0,0};
 	char	*ground_path = "/home/mgamraou/Downloads/floor_1_.xpm";
 	char	*wall_path = "/home/mgamraou/Downloads/crate-1.xpm";
-	char    *palyer_path = "/home/mgamraou/Downloads/player_1_.xpm";
+	char    *player_path = "/home/mgamraou/Downloads/player_1_.xpm";
 	char	*vent_path = "/home/mgamraou/Downloads/ventsus-1.xpm";
 	char	*exit_path = "/home/mgamraou/Downloads/exit-1.xpm";
 	
 	game.mlx = mlx_init();
-	game.map = get_map(av[1]);
 	game.ground = mlx_xpm_file_to_image(game.mlx, ground_path, &game.img_width, &game.img_height);
 	game.vent = mlx_xpm_file_to_image(game.mlx, vent_path, &game.img_width, &game.img_height);
 	game.exit = mlx_xpm_file_to_image(game.mlx, exit_path, &game.img_width, &game.img_height);
 	game.wall = mlx_xpm_file_to_image(game.mlx, wall_path, &game.img_width, &game.img_height);
-	game.player = mlx_xpm_file_to_image(game.mlx, palyer_path, &game.img_width, &game.img_height);
+	game.player = mlx_xpm_file_to_image(game.mlx, player_path, &game.img_width, &game.img_height);
 	game.count = 0;
 
-	
+	if (check_file(av[1]) == 0)
+	{
+		printf("ERROR:\nWrong file format!!");
+		exit(0);
+	}
+	game.map = get_map(av[1]);
 	if (map_manager(game.map, &data) == 0)
 		exit(0);
 
@@ -107,6 +115,9 @@ int main(int ac, char **av)
 
 	//render_map(&game, game.map, game.img_width, game.img_height);
 
+	// mlx_hook(game.window, 2, 1L << 0, key_press, &game); 
+	// mlx_hook(game.window, 3, 1L << 1, key_release, &game);
+	// mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_key_hook(game.window, key_press, &game);
 	mlx_hook(game.window, 17, 0, close_window, NULL);
 
@@ -114,3 +125,12 @@ int main(int ac, char **av)
 
 	return (0);
 }
+
+// what is left to do :
+// animation
+// movement on hold key
+// maybe enhance player movement
+// maybe display counter with textures
+
+
+// for animation ill just make enemies as spikes that appear and dissappear and so on

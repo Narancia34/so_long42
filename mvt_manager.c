@@ -3,15 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   mvt_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamraou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:26:00 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/04 17:26:02 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:14:45 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "so_long.h"
 #include <mlx.h>
+
+void	move_w(t_game *game, t_npos *npos)
+{
+	char *player_path = "/home/mgamraou/Downloads/player_1_.xpm";
+	
+	npos->n_ypos--;
+	game->player = mlx_xpm_file_to_image(game->mlx, player_path, &game->img_width, &game->img_height);
+}
+
+void	move_s(t_game *game, t_npos *npos)
+{
+	char *player_path = "/home/mgamraou/Downloads/player_1_.xpm";
+	
+	npos->n_ypos++;
+	game->player = mlx_xpm_file_to_image(game->mlx, player_path, &game->img_width, &game->img_height);
+}
+
+void	move_a(t_game *game, t_npos *npos)
+{
+	char *player_path = "/home/mgamraou/Downloads/player_left.xpm";
+	
+	npos->n_xpos--;
+	game->player = mlx_xpm_file_to_image(game->mlx, player_path, &game->img_width, &game->img_height);
+}
+
+void	move_d(t_game *game, t_npos *npos)
+{
+	char *player_path = "/home/mgamraou/Downloads/player_1_.xpm";
+	
+	npos->n_xpos++;
+	game->player = mlx_xpm_file_to_image(game->mlx, player_path, &game->img_width, &game->img_height);
+}
 
 void	wasd_move(int keycode, t_game *game, t_npos *npos)
 {
@@ -20,13 +53,13 @@ void	wasd_move(int keycode, t_game *game, t_npos *npos)
 	if (keycode == ESC_KEY)
 		exit(0);
 	if (keycode == 'w')
-		npos->n_ypos--;
+		move_w(game, npos);
 	else if (keycode == 's')
-		npos->n_ypos++;
+		move_s(game, npos);
 	else if (keycode == 'a')
-		npos->n_xpos--;
+		move_a(game, npos);
 	else if (keycode == 'd')
-		npos->n_xpos++;
+		move_d(game, npos);
 }
 
 int	is_exit_valid(t_game *game)
@@ -64,7 +97,7 @@ int	key_press(int keycode, t_game *game)
 	{
 		if (is_exit_valid(game) == 1)
 			return (1);
-		mlx_clear_window(game->mlx, game->window);
+		exit(0);
 	}
 	else
 	{

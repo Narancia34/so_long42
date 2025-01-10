@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   path_finder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamraou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 16:10:52 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/04 16:10:53 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/08 10:11:03 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "so_long.h"
 
 void	find_player(char **map, t_game *game)
 {
