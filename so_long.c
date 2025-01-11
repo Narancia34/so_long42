@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:12:23 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/09 18:33:09 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:02:27 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <stdio.h>
 #include "get_next_line.h"
 #include "libft.h"
-#include <fcntl.h>
 #include "so_long.h"
+#include <fcntl.h>
 
 int	close_window(void *param)
 {
@@ -112,15 +112,16 @@ int main(int ac, char **av)
 		free(map_copy[i]);
 	}
 	free(map_copy);
-
-	//render_map(&game, game.map, game.img_width, game.img_height);
-
-	// mlx_hook(game.window, 2, 1L << 0, key_press, &game); 
-	// mlx_hook(game.window, 3, 1L << 1, key_release, &game);
-	// mlx_loop_hook(game.mlx, game_loop, &game);
-	mlx_key_hook(game.window, key_press, &game);
+	
+	//render_map(&game, game.map, game.img_width, game.img_width);
+	mlx_hook(game.window, 2, 1L << 0, key_press, &game); 
+	mlx_hook(game.window, 3, 1L << 1, key_release, &game);
+	mlx_loop_hook(game.mlx, game_loop, &game);
+	// mlx_hook(game.window, 2, 1L << 0, get_keycode, &game);
+	// mlx_loop_hook(game.mlx, handle_keypress, &game);
+	// mlx_key_hook(game.window, key_press, &game);
+	// mlx_loop_hook(game.mlx, animation, &game);
 	mlx_hook(game.window, 17, 0, close_window, NULL);
-
 	mlx_loop(game.mlx);
 
 	return (0);

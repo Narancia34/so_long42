@@ -6,29 +6,13 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:26:00 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/09 17:14:45 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/10 21:21:03 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "so_long.h"
 #include <mlx.h>
-
-void	move_w(t_game *game, t_npos *npos)
-{
-	char *player_path = "/home/mgamraou/Downloads/player_1_.xpm";
-	
-	npos->n_ypos--;
-	game->player = mlx_xpm_file_to_image(game->mlx, player_path, &game->img_width, &game->img_height);
-}
-
-void	move_s(t_game *game, t_npos *npos)
-{
-	char *player_path = "/home/mgamraou/Downloads/player_1_.xpm";
-	
-	npos->n_ypos++;
-	game->player = mlx_xpm_file_to_image(game->mlx, player_path, &game->img_width, &game->img_height);
-}
 
 void	move_a(t_game *game, t_npos *npos)
 {
@@ -53,9 +37,9 @@ void	wasd_move(int keycode, t_game *game, t_npos *npos)
 	if (keycode == ESC_KEY)
 		exit(0);
 	if (keycode == 'w')
-		move_w(game, npos);
+		npos->n_ypos--;
 	else if (keycode == 's')
-		move_s(game, npos);
+		npos->n_ypos++;
 	else if (keycode == 'a')
 		move_a(game, npos);
 	else if (keycode == 'd')
@@ -92,7 +76,7 @@ int	key_press(int keycode, t_game *game)
 	if (game->map[npos.n_ypos][npos.n_xpos] == '1')
 		return (1);
 	else if (game->map[npos.n_ypos][npos.n_xpos] == 'X')
-		mlx_clear_window(game->mlx, game->window);
+		exit(0);
 	else if (game->map[npos.n_ypos][npos.n_xpos] == 'E')
 	{
 		if (is_exit_valid(game) == 1)
