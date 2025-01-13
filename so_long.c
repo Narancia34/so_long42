@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:12:23 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/11 17:02:27 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:46:48 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int main(int ac, char **av)
 	char    *player_path = "/home/mgamraou/Downloads/player_1_.xpm";
 	char	*vent_path = "/home/mgamraou/Downloads/ventsus-1.xpm";
 	char	*exit_path = "/home/mgamraou/Downloads/exit-1.xpm";
+	char	*player_right = "/home/mgamraou/Downloads/player_1_.xpm";
+	char	*player_left = "/home/mgamraou/Downloads/player_left.xpm";
 	
 	game.mlx = mlx_init();
 	game.ground = mlx_xpm_file_to_image(game.mlx, ground_path, &game.img_width, &game.img_height);
@@ -80,6 +82,9 @@ int main(int ac, char **av)
 	game.exit = mlx_xpm_file_to_image(game.mlx, exit_path, &game.img_width, &game.img_height);
 	game.wall = mlx_xpm_file_to_image(game.mlx, wall_path, &game.img_width, &game.img_height);
 	game.player = mlx_xpm_file_to_image(game.mlx, player_path, &game.img_width, &game.img_height);
+	game.left_player = mlx_xpm_file_to_image(game.mlx, player_left, &game.img_width, &game.img_height);
+	game.right_player = mlx_xpm_file_to_image(game.mlx, player_right, &game.img_width, &game.img_height);
+	
 	game.count = 0;
 
 	if (check_file(av[1]) == 0)
@@ -113,12 +118,12 @@ int main(int ac, char **av)
 	}
 	free(map_copy);
 	
-	//render_map(&game, game.map, game.img_width, game.img_width);
-	mlx_hook(game.window, 2, 1L << 0, key_press, &game); 
-	mlx_hook(game.window, 3, 1L << 1, key_release, &game);
-	mlx_loop_hook(game.mlx, game_loop, &game);
-	// mlx_hook(game.window, 2, 1L << 0, get_keycode, &game);
-	// mlx_loop_hook(game.mlx, handle_keypress, &game);
+	render_map(&game, game.map, game.img_width, game.img_width);
+	// mlx_hook(game.window, 2, 1L << 0, key_press, &game); 
+	// mlx_hook(game.window, 3, 1L << 1, key_release, &game);
+	// mlx_loop_hook(game.mlx, game_loop, &game);
+	mlx_hook(game.window, 2, 1L << 0, get_keycode, &game);
+	mlx_loop_hook(game.mlx, loop, &game);
 	// mlx_key_hook(game.window, key_press, &game);
 	// mlx_loop_hook(game.mlx, animation, &game);
 	mlx_hook(game.window, 17, 0, close_window, NULL);

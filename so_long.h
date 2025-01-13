@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:08:32 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/11 17:04:44 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:47:40 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct s_game
 	void	*ground;
 	void	*wall;
 	void	*player;
+	void	*right_player;
+	void	*left_player;
 	void	*vent;
 	void	*window;
 	void	*exit;
@@ -49,6 +51,7 @@ typedef struct s_game
 	int		img_height;
 	int		count;
 	int		keypress;
+	int		flag;
 	t_keys 	*keys;
 }	t_game;
 
@@ -68,11 +71,13 @@ void	render_map(t_game *game, char **map, int img_width, int img_height);
 void	find_player(char **map, t_game *game);
 // int		key_press(int keycode, t_game *game);
 
-int		key_press(int keycode, t_game *game);
-int		key_release(int keycode, t_game *game);
-int	game_loop(t_game *game);
-// int		animation(t_game *game);
-// int		get_keycode(int keycode, t_game *game);
-// int handle_keypress(t_game *game);
+// int		key_press(int keycode, t_game *game);
+// int		key_release(int keycode, t_game *game);
+// int		game_loop(t_game *game);
+int		animation(t_game *game, int xpos, int ypos);
+int		get_keycode(int keycode, t_game *game);
+int		handle_keypress(t_game *game);
+int		loop(t_game *game);
+int		put_enemy(t_game *game);
 
 #endif
