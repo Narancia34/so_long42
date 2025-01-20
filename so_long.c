@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:12:23 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/13 12:46:48 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/20 10:09:36 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <stdio.h>
 #include "get_next_line.h"
 #include "libft.h"
-#include "so_long.h"
 #include <fcntl.h>
+#include "so_long.h"
 
 int	close_window(void *param)
 {
@@ -71,7 +71,7 @@ int main(int ac, char **av)
 	char	*ground_path = "/home/mgamraou/Downloads/floor_1_.xpm";
 	char	*wall_path = "/home/mgamraou/Downloads/crate-1.xpm";
 	char    *player_path = "/home/mgamraou/Downloads/player_1_.xpm";
-	char	*vent_path = "/home/mgamraou/Downloads/ventsus-1.xpm";
+	char	*vent_path = "/home/mgamraou/Downloads/vertopal.com_susbody-1.xpm";
 	char	*exit_path = "/home/mgamraou/Downloads/exit-1.xpm";
 	char	*player_right = "/home/mgamraou/Downloads/player_1_.xpm";
 	char	*player_left = "/home/mgamraou/Downloads/player_left.xpm";
@@ -84,6 +84,8 @@ int main(int ac, char **av)
 	game.player = mlx_xpm_file_to_image(game.mlx, player_path, &game.img_width, &game.img_height);
 	game.left_player = mlx_xpm_file_to_image(game.mlx, player_left, &game.img_width, &game.img_height);
 	game.right_player = mlx_xpm_file_to_image(game.mlx, player_right, &game.img_width, &game.img_height);
+	fill_holder(&game);
+	load_frames(&game);
 	
 	game.count = 0;
 
@@ -96,15 +98,16 @@ int main(int ac, char **av)
 	if (map_manager(game.map, &data) == 0)
 		exit(0);
 
-	int rows = 0;
-	int cols = strlen(game.map[0]);
-	while (game.map[rows] != NULL)
-		rows++;
+	game.rows = 0;
+	game.cols = strlen(game.map[0]);
+	while (game.map[game.rows] != NULL)
+		game.rows++;
 	
-	game.window = mlx_new_window(game.mlx, cols*game.img_width, rows*game.img_height, "amongus");
+	game.window = mlx_new_window(game.mlx, game.cols*game.img_width, game.rows*game.img_height + 100, "amongus");
+
 	
-	char **map_copy = malloc(rows * sizeof(char *));
-	for (int i = 0; i < rows; i++)
+	char **map_copy = malloc(game.rows * sizeof(char *));
+	for (int i = 0; i < game.rows; i++)
 	{
 		map_copy[i] = strdup(game.map[i]);
 	}
@@ -112,31 +115,17 @@ int main(int ac, char **av)
 	find_player(game.map, &game);
 	if (find_path(map_copy, game.p_ypos, game.p_xpos, '0') == 0)
 		exit(0);
-	for (int i = 0; i < rows; i++)
+	for (int i = 0; i < game.rows; i++)
 	{
 		free(map_copy[i]);
 	}
 	free(map_copy);
 	
 	render_map(&game, game.map, game.img_width, game.img_width);
-	// mlx_hook(game.window, 2, 1L << 0, key_press, &game); 
-	// mlx_hook(game.window, 3, 1L << 1, key_release, &game);
-	// mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_hook(game.window, 2, 1L << 0, get_keycode, &game);
 	mlx_loop_hook(game.mlx, loop, &game);
-	// mlx_key_hook(game.window, key_press, &game);
-	// mlx_loop_hook(game.mlx, animation, &game);
 	mlx_hook(game.window, 17, 0, close_window, NULL);
 	mlx_loop(game.mlx);
 
 	return (0);
 }
-
-// what is left to do :
-// animation
-// movement on hold key
-// maybe enhance player movement
-// maybe display counter with textures
-
-
-// for animation ill just make enemies as spikes that appear and dissappear and so on

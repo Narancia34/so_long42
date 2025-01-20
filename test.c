@@ -30,8 +30,8 @@ int	put_enemy(t_game *game)
 
 int	animation(t_game *game, int xpos, int ypos)
 {
-	static int frame = 0;
-	static int counter = 0;
+	static int frame;
+	static int counter;
 
 	int delay = 40000;
 

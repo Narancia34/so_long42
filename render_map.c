@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 16:26:21 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/18 14:23:57 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:24:55 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdio.h>
 #include "so_long.h"
 #include <mlx.h>
-
-
 
 void	put_image(char c, t_game *game, int xpos, int ypos)
 {
@@ -69,5 +67,5 @@ void	render_map(t_game *game, char **map, int img_width, int img_height)
 	count = ft_itoa(game->count);
 	count = ft_strjoin("moves : ", count);
 	mlx_string_put(game->mlx, game->window, 20, 20, 0xFFFFFF, count);
-	put_count(game, game->data, game->count);
+	put_count(game, game->count);
 }

@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:05:19 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/13 12:55:30 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:35:28 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 int	is_exit_valid(t_game *game)
 {
-	int		j;
-	int		i;
+	int	j;
+	int	i;
 
 	i = 0;
 	while (game->map[i])
@@ -38,7 +38,7 @@ void	wasd_mvt(t_npos *npos, t_game *game)
 {
 	if (game->keypress == ESC_KEY)
 		exit(0);
-	if (game->keypress== 'w')
+	if (game->keypress == 'w')
 		npos->n_ypos--;
 	else if (game->keypress == 's')
 		npos->n_ypos++;
@@ -54,12 +54,12 @@ void	wasd_mvt(t_npos *npos, t_game *game)
 	}
 }
 
-int handle_keypress(t_game *game)
+int	handle_keypress(t_game *game)
 {
-	t_npos npos;
-	
+	t_npos	npos;
+
 	npos.n_xpos = game->p_xpos;
-    npos.n_ypos = game->p_ypos;
+	npos.n_ypos = game->p_ypos;
 	wasd_mvt(&npos, game);
 	if (game->map[npos.n_ypos][npos.n_xpos] == '1')
 		return (0);
@@ -74,8 +74,8 @@ int handle_keypress(t_game *game)
 	{
 		game->map[game->p_ypos][game->p_xpos] = '0';
 		game->map[npos.n_ypos][npos.n_xpos] = 'P';
-		render_map(game, game->map, game->img_width, game->img_width);
 		game->count++;
+		render_map(game, game->map, game->img_width, game->img_width);
 		game->p_xpos = npos.n_xpos;
 		game->p_ypos = npos.n_ypos;
 	}
@@ -87,11 +87,11 @@ int	loop(t_game *game)
 {
 	put_enemy(game);
 	handle_keypress(game);
-	return(0);
+	return (0);
 }
 
 int	get_keycode(int keycode, t_game *game)
 {
 	game->keypress = keycode;
-    return (0);
+	return (0);
 }
