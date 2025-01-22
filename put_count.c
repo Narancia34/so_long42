@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:29:17 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/18 18:12:21 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:46:20 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	put_count(t_game *game, int count)
 	i = 0;
 	x = (game->cols / 2) * game->img_width;
 	y = (game->rows + 1) * game->img_height;
+	mlx_put_image_to_window(game->mlx, game->window, \
+	game->moves, x - 150, y - 30);
 	while (buffer[i])
 	{
 		digit = buffer[i] - '0';

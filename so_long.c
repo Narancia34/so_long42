@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:12:23 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/20 10:09:36 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:22:40 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <stdio.h>
 #include "get_next_line.h"
 #include "libft.h"
-#include <fcntl.h>
 #include "so_long.h"
+#include <fcntl.h>
 
 int	close_window(void *param)
 {
@@ -68,22 +68,17 @@ int main(int ac, char **av)
 	t_game game;
 	t_data data;
 	t_keys	keys = {0,0,0,0};
-	char	*ground_path = "/home/mgamraou/Downloads/floor_1_.xpm";
-	char	*wall_path = "/home/mgamraou/Downloads/crate-1.xpm";
-	char    *player_path = "/home/mgamraou/Downloads/player_1_.xpm";
-	char	*vent_path = "/home/mgamraou/Downloads/vertopal.com_susbody-1.xpm";
-	char	*exit_path = "/home/mgamraou/Downloads/exit-1.xpm";
-	char	*player_right = "/home/mgamraou/Downloads/player_1_.xpm";
-	char	*player_left = "/home/mgamraou/Downloads/player_left.xpm";
-	
+	int width;
+	int height;
 	game.mlx = mlx_init();
-	game.ground = mlx_xpm_file_to_image(game.mlx, ground_path, &game.img_width, &game.img_height);
-	game.vent = mlx_xpm_file_to_image(game.mlx, vent_path, &game.img_width, &game.img_height);
-	game.exit = mlx_xpm_file_to_image(game.mlx, exit_path, &game.img_width, &game.img_height);
-	game.wall = mlx_xpm_file_to_image(game.mlx, wall_path, &game.img_width, &game.img_height);
-	game.player = mlx_xpm_file_to_image(game.mlx, player_path, &game.img_width, &game.img_height);
-	game.left_player = mlx_xpm_file_to_image(game.mlx, player_left, &game.img_width, &game.img_height);
-	game.right_player = mlx_xpm_file_to_image(game.mlx, player_right, &game.img_width, &game.img_height);
+	game.ground = mlx_xpm_file_to_image(game.mlx, "srcs/floor.xpm", &game.img_width, &game.img_height);
+	game.body = mlx_xpm_file_to_image(game.mlx, "srcs/body.xpm", &game.img_width, &game.img_height);
+	game.exit = mlx_xpm_file_to_image(game.mlx, "srcs/closed_exit.xpm", &game.img_width, &game.img_height);
+	game.wall = mlx_xpm_file_to_image(game.mlx, "srcs/crate.xpm", &game.img_width, &game.img_height);
+	game.player = mlx_xpm_file_to_image(game.mlx, "srcs/player_right.xpm", &game.img_width, &game.img_height);
+	game.left_player = mlx_xpm_file_to_image(game.mlx, "srcs/player_left.xpm", &game.img_width, &game.img_height);
+	game.right_player = mlx_xpm_file_to_image(game.mlx, "srcs/player_right.xpm", &game.img_width, &game.img_height);
+	game.moves = mlx_xpm_file_to_image(game.mlx, "srcs/border.xpm", &width, &height);
 	fill_holder(&game);
 	load_frames(&game);
 	
@@ -121,6 +116,7 @@ int main(int ac, char **av)
 	}
 	free(map_copy);
 	
+	initialize_enemies(&game);
 	render_map(&game, game.map, game.img_width, game.img_width);
 	mlx_hook(game.window, 2, 1L << 0, get_keycode, &game);
 	mlx_loop_hook(game.mlx, loop, &game);

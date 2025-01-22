@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:08:32 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/20 10:17:20 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:47:22 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ typedef struct s_frames
 	void	*frame6;
 }	t_frames;
 
+typedef struct s_enemy
+{
+	int	x;
+	int	y;
+	int	frame;
+	int	counter;
+}	t_enemy;
+
 typedef struct s_game
 {
 	void	*mlx;
@@ -58,10 +66,11 @@ typedef struct s_game
 	void	*player;
 	void	*right_player;
 	void	*left_player;
-	void	*vent;
+	void	*body;
 	void	*window;
 	void	*exit;
 	void	*enemy;
+	void	*moves;
 	void	*digits[10];
 	void	*frames[5];
 	char	**map;
@@ -74,7 +83,9 @@ typedef struct s_game
 	int		flag;
 	int		rows;
 	int		cols;
+	int		enemy_count;
 	t_keys	*keys;
+	t_enemy	*enemies;
 }	t_game;
 
 typedef struct s_npos
@@ -90,7 +101,7 @@ int		is_rectangular(char **map, t_data *data);
 int		find_path(char **map, int x_pos, int y_pos, char target);
 void	render_map(t_game *game, char **map, int img_width, int img_height);
 void	find_player(char **map, t_game *game);
-int		animation(t_game *game, int xpos, int ypos);
+void	animation(t_game *game, int xpos, int ypos);
 int		get_keycode(int keycode, t_game *game);
 int		handle_keypress(t_game *game);
 int		loop(t_game *game);
@@ -98,5 +109,7 @@ int		put_enemy(t_game *game);
 void	fill_holder(t_game *game);
 void	put_count(t_game *game, int count);
 void	load_frames(t_game *game);
+
+void	initialize_enemies(t_game *game);
 
 #endif
