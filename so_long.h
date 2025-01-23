@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:08:32 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/22 11:47:22 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:19:16 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ typedef struct s_game
 	void	*left_player;
 	void	*body;
 	void	*window;
-	void	*exit;
+	void	*closedexit;
+	void	*openexit;
 	void	*enemy;
 	void	*moves;
+	void	*imposter;
 	void	*digits[10];
 	void	*frames[5];
 	char	**map;
@@ -98,9 +100,7 @@ int		map_manager(char **map, t_data *data);
 int		check_map_components(char **map, t_data *data);
 int		is_surrounded_bywalls(char **map, t_data *data);
 int		is_rectangular(char **map, t_data *data);
-int		find_path(char **map, int x_pos, int y_pos, char target);
 void	render_map(t_game *game, char **map, int img_width, int img_height);
-void	find_player(char **map, t_game *game);
 void	animation(t_game *game, int xpos, int ypos);
 int		get_keycode(int keycode, t_game *game);
 int		handle_keypress(t_game *game);
@@ -109,7 +109,14 @@ int		put_enemy(t_game *game);
 void	fill_holder(t_game *game);
 void	put_count(t_game *game, int count);
 void	load_frames(t_game *game);
-
 void	initialize_enemies(t_game *game);
+
+char	**copy_map(char **map);
+void	find_player(char **map, t_game *game);
+void	free_copy(char **map);
+int		count_collectibles(char **map);
+int		find_path(char **map, int x_pos, int y_pos, char target);
+int		path_manager(char **map, int x_pos, int y_pos);
+int	is_valid_move(char **map, int x, int y);
 
 #endif

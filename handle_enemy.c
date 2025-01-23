@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:31:47 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/22 11:44:56 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/23 09:23:21 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	load_frames(t_game *game)
 	int	width;
 
 	game->frames[0] = mlx_xpm_file_to_image(game->mlx, \
-	"srcs/fire1.xpm", &width, &height);
+	"sprites/fire1.xpm", &width, &height);
 	game->frames[1] = mlx_xpm_file_to_image(game->mlx, \
-	"srcs/fire2.xpm", &width, &height);
+	"sprites/fire2.xpm", &width, &height);
 	game->frames[2] = mlx_xpm_file_to_image(game->mlx, \
-	"srcs/fire4.xpm", &width, &height);
+	"sprites/fire4.xpm", &width, &height);
 	game->frames[3] = mlx_xpm_file_to_image(game->mlx, \
-	"srcs/fire5.xpm", &width, &height);
+	"sprites/fire5.xpm", &width, &height);
 	game->frames[4] = mlx_xpm_file_to_image(game->mlx, \
-	"srcs/fire6.xpm", &width, &height);
+	"sprites/fire6.xpm", &width, &height);
 }
 
 void	animation(t_game *game, int xpos, int ypos)
@@ -39,7 +39,7 @@ void	animation(t_game *game, int xpos, int ypos)
 	int	total_frames;
 	int	i;
 
-	delay = 4000;
+	delay = 8000;
 	total_frames = 5;
 	i = 0;
 	while (i < game->enemy_count)

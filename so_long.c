@@ -6,18 +6,11 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:12:23 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/21 18:22:40 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:19:38 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include "get_next_line.h"
-#include "libft.h"
 #include "so_long.h"
-#include <fcntl.h>
 
 int	close_window(void *param)
 {
@@ -28,7 +21,6 @@ int	close_window(void *param)
 int	check_file(char *name)
 {
 	char	*extension;
-	int		i;
 	
 	extension = ft_strchr(name, '.');
 	if (ft_memcmp(extension, ".ber", 5) == 0)
@@ -39,7 +31,6 @@ int	check_file(char *name)
 char	**get_map(char *name)
 {
 	int	fd;
-	int i;
 	char	*line;
 	char	**map;
 	char	*file;
@@ -67,20 +58,21 @@ int main(int ac, char **av)
 {
 	t_game game;
 	t_data data;
-	t_keys	keys = {0,0,0,0};
 	int width;
 	int height;
 	game.mlx = mlx_init();
-	game.ground = mlx_xpm_file_to_image(game.mlx, "srcs/floor.xpm", &game.img_width, &game.img_height);
-	game.body = mlx_xpm_file_to_image(game.mlx, "srcs/body.xpm", &game.img_width, &game.img_height);
-	game.exit = mlx_xpm_file_to_image(game.mlx, "srcs/closed_exit.xpm", &game.img_width, &game.img_height);
-	game.wall = mlx_xpm_file_to_image(game.mlx, "srcs/crate.xpm", &game.img_width, &game.img_height);
-	game.player = mlx_xpm_file_to_image(game.mlx, "srcs/player_right.xpm", &game.img_width, &game.img_height);
-	game.left_player = mlx_xpm_file_to_image(game.mlx, "srcs/player_left.xpm", &game.img_width, &game.img_height);
-	game.right_player = mlx_xpm_file_to_image(game.mlx, "srcs/player_right.xpm", &game.img_width, &game.img_height);
-	game.moves = mlx_xpm_file_to_image(game.mlx, "srcs/border.xpm", &width, &height);
+	game.ground = mlx_xpm_file_to_image(game.mlx, "sprites/floor.xpm", &game.img_width, &game.img_height);
+	game.body = mlx_xpm_file_to_image(game.mlx, "sprites/body.xpm", &game.img_width, &game.img_height);
+	game.closedexit = mlx_xpm_file_to_image(game.mlx, "sprites/closedexit.xpm", &game.img_width, &game.img_height);
+	game.openexit = mlx_xpm_file_to_image(game.mlx, "sprites/openexit.xpm", &game.img_width, &game.img_height);
+	game.wall = mlx_xpm_file_to_image(game.mlx, "sprites/crate.xpm", &game.img_width, &game.img_height);
+	game.player = mlx_xpm_file_to_image(game.mlx, "sprites/player_right.xpm", &game.img_width, &game.img_height);
+	game.left_player = mlx_xpm_file_to_image(game.mlx, "sprites/player_left.xpm", &game.img_width, &game.img_height);
+	game.right_player = mlx_xpm_file_to_image(game.mlx, "sprites/player_right.xpm", &game.img_width, &game.img_height);
+	game.moves = mlx_xpm_file_to_image(game.mlx, "sprites/border.xpm", &width, &height);
 	fill_holder(&game);
 	load_frames(&game);
+	(void)ac;
 	
 	game.count = 0;
 
@@ -98,23 +90,14 @@ int main(int ac, char **av)
 	while (game.map[game.rows] != NULL)
 		game.rows++;
 	
-	game.window = mlx_new_window(game.mlx, game.cols*game.img_width, game.rows*game.img_height + 100, "amongus");
-
-	
-	char **map_copy = malloc(game.rows * sizeof(char *));
-	for (int i = 0; i < game.rows; i++)
-	{
-		map_copy[i] = strdup(game.map[i]);
-	}
+	game.window = mlx_new_window(game.mlx, game.cols*game.img_width, game.rows*game.img_height + 80, "amongus");
 
 	find_player(game.map, &game);
-	if (find_path(map_copy, game.p_ypos, game.p_xpos, '0') == 0)
-		exit(0);
-	for (int i = 0; i < game.rows; i++)
+	if (path_manager(game.map, game.p_xpos, game.p_ypos) == 0)
 	{
-		free(map_copy[i]);
+		printf("ERROR:\nExit not reachable!");
+		exit(0);
 	}
-	free(map_copy);
 	
 	initialize_enemies(&game);
 	render_map(&game, game.map, game.img_width, game.img_width);

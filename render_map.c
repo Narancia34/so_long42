@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 16:26:21 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/21 18:20:08 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:18:38 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	put_image(char c, t_game *game, int xpos, int ypos)
 		game->window, game->body, xpos, ypos);
 	else if (c == 'E')
 		mlx_put_image_to_window(game->mlx, \
-		game->window, game->exit, xpos, ypos);
+		game->window, game->closedexit, xpos, ypos);
 	else if (c == 'P')
 	{
 		if (game->flag == 1)
@@ -46,7 +46,6 @@ void	render_map(t_game *game, char **map, int img_width, int img_height)
 	int		j;
 	int		xpos;
 	int		ypos;
-	char	*count;
 
 	i = 0;
 	while (map[i])
@@ -61,8 +60,5 @@ void	render_map(t_game *game, char **map, int img_width, int img_height)
 		}
 		i++;
 	}
-	count = ft_itoa(game->count);
-	count = ft_strjoin("moves : ", count);
-	mlx_string_put(game->mlx, game->window, 20, 20, 0xFFFFFF, count);
 	put_count(game, game->count);
 }
