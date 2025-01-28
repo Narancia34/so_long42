@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:05:19 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/22 11:34:33 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/28 09:36:19 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	is_exit_valid(t_game *game)
 void	wasd_mvt(t_npos *npos, t_game *game)
 {
 	if (game->keypress == ESC_KEY)
-		exit(0);
+		close_window(game);
 	if (game->keypress == 'w')
 		npos->n_ypos--;
 	else if (game->keypress == 's')
@@ -64,11 +64,11 @@ int	handle_keypress(t_game *game)
 	if (game->map[npos.n_ypos][npos.n_xpos] == '1')
 		return (0);
 	else if (game->map[npos.n_ypos][npos.n_xpos] == 'X')
-		exit(0);
+		close_window(game);
 	else if (game->map[npos.n_ypos][npos.n_xpos] == 'E')
 	{
 		if (is_exit_valid(game) == 0)
-			exit(0);
+			close_window(game);
 	}
 	else if (game->p_xpos != npos.n_xpos || game->p_ypos != npos.n_ypos)
 	{
