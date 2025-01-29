@@ -6,13 +6,11 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:05:19 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/28 09:36:19 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:24:23 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "so_long.h"
-#include <mlx.h>
 
 int	is_exit_valid(t_game *game)
 {

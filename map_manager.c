@@ -6,13 +6,10 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:37:35 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/08 15:34:18 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:23:58 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
-#include "libft.h"
 #include "so_long.h"
 
 int	is_rectangular(char **map, t_data *data)

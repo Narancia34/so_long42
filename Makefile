@@ -1,29 +1,28 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-NAME = so_long.a
-FLAGS = -lmlx -lX11 -lXext -lm
-NAME_PROGRAMME = so_long
-SRCS = so_long.c map_manager.c path_finder.c render_map.c manage_mvt.c get_next_line.c get_next_line_utils.c put_count.c handle_enemy.c path_finder_utils.c
-OFILES = $(SRCS:.c=.o)
+CFLAGS = -Wall -Werror -Wextra
+MLX_FLAGS = -lmlx -lX11 -lXext -lm
 
-all: $(NAME_PROGRAMME)
+NAME = so_long
 
-$(NAME): $(OFILES)
-	ar rcs $(NAME) $(OFILES)
+SRCS = so_long.c map_manager.c render_map.c manage_mvt.c get_next_line.c \
+       get_next_line_utils.c put_count.c handle_enemy.c path_finder.c utils.c
 
-$(NAME_PROGRAMME): $(NAME)
-	$(CC) $(CFLAGS) $(OFILES) libft.a -o $(NAME_PROGRAMME) $(FLAGS)
+OBJS = $(SRCS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) ./libft/libft.a -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OFILES)
+	rm -rf $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME) $(NAME_PROGRAMME)
+	rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: clean fclean re
-.SECONDARY: $(OFILES)
+.PHONY: all clean fclean re

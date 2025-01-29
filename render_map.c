@@ -6,14 +6,11 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 16:26:21 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/23 14:03:14 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:07:55 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
 #include "so_long.h"
-#include <mlx.h>
 
 void	put_image(char c, t_game *game, int xpos, int ypos)
 {

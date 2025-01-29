@@ -6,15 +6,11 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:31:47 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/23 09:23:21 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:24:14 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include "libft.h"
 #include "so_long.h"
-#include <mlx.h>
-#include <fcntl.h>
 
 void	load_frames(t_game *game)
 {

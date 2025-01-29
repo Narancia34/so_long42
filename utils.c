@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 10:09:40 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/28 11:32:03 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:28:53 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	check_file(char *filename)
 {
 	int	len;
 
-    if (!filename)
-        return (0);
-    len = ft_strlen(filename);
-    if (len < 4)
-        return (0);
-    if (ft_strncmp(filename + (len - 4), ".ber", 4) != 0)
-        return (0);
-    return (1);
+	if (!filename)
+		return (0);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (0);
+	if (ft_strncmp(filename + (len - 4), ".ber", 4) != 0)
+		return (0);
+	return (1);
 }
 
-char	*read_map(int fd, t_game *game)
+char	*read_map(int fd)
 {
 	char	*file;
 	char	*temp;
@@ -37,7 +37,7 @@ char	*read_map(int fd, t_game *game)
 	{
 		free(file);
 		printf("ERROR:\nInvalid file name!!");
-		close_window(game);
+		return (NULL);
 	}
 	while (1)
 	{
@@ -49,7 +49,7 @@ char	*read_map(int fd, t_game *game)
 		free(temp);
 		free(line);
 	}
-	return(file);
+	return (file);
 }
 
 char	**get_map(char *name, t_game *game)
@@ -57,9 +57,16 @@ char	**get_map(char *name, t_game *game)
 	int		fd;
 	char	*file;
 	char	**map;
-	
+
 	fd = open(name, O_RDWR);
-	file = read_map(fd, game);
+	if (fd < 0)
+	{
+		printf("ERROR:\nCannot open file!");
+		close_window(game);
+	}
+	file = read_map(fd);
+	if (!file)
+		close_window(game);
 	map = ft_split(file, '\n');
 	free(file);
 	close(fd);
