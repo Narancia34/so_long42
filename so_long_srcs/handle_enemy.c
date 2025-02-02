@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:31:47 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/29 15:24:14 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:08:34 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	load_frames(t_game *game)
 	int	width;
 
 	game->frames[0] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/fire1.xpm", &width, &height);
+	"./sprites/fire1.xpm", &width, &height);
 	game->frames[1] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/fire2.xpm", &width, &height);
+	"./sprites/fire2.xpm", &width, &height);
 	game->frames[2] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/fire4.xpm", &width, &height);
+	"./sprites/fire4.xpm", &width, &height);
 	game->frames[3] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/fire5.xpm", &width, &height);
+	"./sprites/fire5.xpm", &width, &height);
 	game->frames[4] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/fire6.xpm", &width, &height);
+	"./sprites/fire6.xpm", &width, &height);
 }
 
 void	animation(t_game *game, int xpos, int ypos)

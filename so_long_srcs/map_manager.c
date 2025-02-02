@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:37:35 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/29 15:23:58 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:17:55 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ int	is_surrounded_bywalls(char **map, t_data *data)
 int	handdle_error(t_data data)
 {
 	if (data.player > 1)
-		return (printf("Error:\nExtra starting position\n"), 0);
+		return (ft_printf("Error:\nExtra starting position\n"), 0);
 	else if (data.player == 0)
-		return (printf("Error:\nNo starting position\n"), 0);
+		return (ft_printf("Error:\nNo starting position\n"), 0);
 	if (data.exit > 1)
-		return (printf("Error:\nExtra exit\n"), 0);
+		return (ft_printf("Error:\nExtra exit\n"), 0);
 	else if (data.exit == 0)
-		return (printf("Error:\nNo exit\n"), 0);
+		return (ft_printf("Error:\nNo exit\n"), 0);
 	if (data.collectibles < 1)
-		return (printf("Error:\nNo collectibles"), 0);
+		return (ft_printf("Error:\nNo collectibles"), 0);
 	return (1);
 }
 
@@ -83,7 +83,7 @@ int	check_map_components(char **map, t_data *data)
 			else if (map[i][j] == 'C')
 				data->collectibles++;
 			else if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'X')
-				return (printf("Error:\nExtra obj"), 0);
+				return (ft_printf("Error:\nExtra obj"), 0);
 			j++;
 		}
 		i++;
@@ -101,9 +101,9 @@ int	map_manager(char **map, t_data *data)
 	data->exit = 0;
 	data->collectibles = 0;
 	if (is_rectangular(map, data) == 0)
-		return (printf("ERROR:\nMap is not rectangular"), 0);
+		return (ft_printf("ERROR:\nMap is not rectangular"), 0);
 	if (is_surrounded_bywalls(map, data) == 0)
-		return (printf("Error:\nNot surrounded by walls"), 0);
+		return (ft_printf("Error:\nNot surrounded by walls"), 0);
 	if (check_map_components(map, data) == 0)
 		return (0);
 	return (1);

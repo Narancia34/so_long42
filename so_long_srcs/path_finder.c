@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:40:19 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/29 10:56:26 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:18:20 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	is_path_to_collect(char **map, t_game *game)
 			if (map[y][x] == 'C' && map_copy[y][x] != '.')
 			{
 				free_map_copy(map_copy, game->rows);
-				printf("ERROR:\nCan't exit! collect");
+				ft_printf("ERROR:\nCan't get all collectibles");
 				close_window(game);
 			}
 			x++;
@@ -109,7 +109,7 @@ int	is_path_to_exit(char **map, t_game *game)
 			if (map[y][x] == 'E' && map_copy[y][x] != '.')
 			{
 				free_map_copy(map_copy, game->rows);
-				printf("ERROR:\nCan't exit!");
+				ft_printf("ERROR:\nCan't exit!");
 				close_window(game);
 			}
 			x++;

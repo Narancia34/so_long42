@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:12:23 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/29 15:00:03 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:18:29 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	free_all(t_game *game)
 	mlx_destroy_image(game->mlx, game->wall);
 	mlx_destroy_image(game->mlx, game->body);
 	mlx_destroy_image(game->mlx, game->closedexit);
-	mlx_destroy_image(game->mlx, game->openexit);
 	mlx_destroy_image(game->mlx, game->left_player);
 	mlx_destroy_image(game->mlx, game->right_player);
 	mlx_destroy_image(game->mlx, game->moves);
@@ -68,21 +67,19 @@ void	init_texture(t_game *game)
 	int	height;
 
 	game->ground = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/floor.xpm", &game->img_width, &game->img_height);
+	"./sprites/floor.xpm", &game->img_width, &game->img_height);
 	game->body = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/body.xpm", &game->img_width, &game->img_height);
+	"./sprites/body.xpm", &game->img_width, &game->img_height);
 	game->closedexit = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/closedexit.xpm", &game->img_width, &game->img_height);
-	game->openexit = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/openexit.xpm", &game->img_width, &game->img_height);
+	"./sprites/closedexit.xpm", &game->img_width, &game->img_height);
 	game->wall = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/crate.xpm", &game->img_width, &game->img_height);
+	"./sprites/crate.xpm", &game->img_width, &game->img_height);
 	game->left_player = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/player_left.xpm", &game->img_width, &game->img_height);
+	"./sprites/player_left.xpm", &game->img_width, &game->img_height);
 	game->right_player = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/player_right.xpm", &game->img_width, &game->img_height);
+	"./sprites/player_right.xpm", &game->img_width, &game->img_height);
 	game->moves = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/border.xpm", &width, &height);
+	"./sprites/border.xpm", &width, &height);
 }
 
 void	init_game(t_game *game, char *av)
@@ -101,6 +98,8 @@ void	init_game(t_game *game, char *av)
 	while (game->map[game->rows] != NULL)
 		game->rows++;
 	initialize_enemies(game);
+	game->window = mlx_new_window(game->mlx, game->cols * game->img_width, \
+	game->rows * game->img_height, "amongus");
 }
 
 int	main(int ac, char **av)
@@ -111,10 +110,9 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		init_game(&game, av[1]);
-		game.window = mlx_new_window(game.mlx, game.cols * game.img_width, game.rows * game.img_height, "amongus");
 		if (check_file(av[1]) == 0)
 		{
-			printf("ERROR:\nWrong file format!!");
+			ft_printf("ERROR:\nWrong file format!!");
 			close_window(&game);
 		}
 		find_player(game.map, &game);

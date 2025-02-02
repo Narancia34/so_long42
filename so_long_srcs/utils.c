@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 10:09:40 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/28 15:28:53 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:18:47 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*read_map(int fd)
 	if (fd < 0)
 	{
 		free(file);
-		printf("ERROR:\nInvalid file name!!");
+		ft_printf("ERROR:\nInvalid file name!!");
 		return (NULL);
 	}
 	while (1)
@@ -61,7 +61,7 @@ char	**get_map(char *name, t_game *game)
 	fd = open(name, O_RDWR);
 	if (fd < 0)
 	{
-		printf("ERROR:\nCannot open file!");
+		ft_printf("ERROR:\nCannot open file!");
 		close_window(game);
 	}
 	file = read_map(fd);

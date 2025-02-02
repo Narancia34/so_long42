@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 10:08:32 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/29 15:27:29 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:14:50 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdio.h>
-# include "get_next_line.h"
 # include <fcntl.h>
-# include "./libft/libft.h"
+# include <stdint.h>
+# include "get_next_line.h"
+# include <stddef.h>
+# include <unistd.h>
+# include "../ft_printf/libftprintf.h"
 
 typedef struct s_data
 {
@@ -50,7 +53,6 @@ typedef struct s_game
 	void	*left_player;
 	void	*body;
 	void	*closedexit;
-	void	*openexit;
 	void	*moves;
 	void	*digits[10];
 	void	*frames[5];
@@ -86,6 +88,8 @@ int		loop(t_game *game);
 int		put_enemy(t_game *game);
 int		is_path_to_exit(char **map, t_game *game);
 int		is_path_to_collect(char **map, t_game *game);
+int		check_file(char *filename);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	render_map(t_game *game, char **map, int img_width, int img_height);
 void	animation(t_game *game, int xpos, int ypos);
 void	fill_holder(t_game *game);
@@ -95,6 +99,12 @@ void	initialize_enemies(t_game *game);
 void	find_player(char **map, t_game *game);
 char	**copy_map(t_game *game, char **map);
 char	**get_map(char *name, t_game *game);
-int		check_file(char *filename);
+char	**ft_split(char const *s, char c);
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_itoa(int n);
+void	*ft_memset(void *b, int c, size_t len);
+size_t	ft_strlen(const char *s);
 
 #endif

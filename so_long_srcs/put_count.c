@@ -6,7 +6,7 @@
 /*   By: mgamraou <mgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:29:17 by mgamraou          #+#    #+#             */
-/*   Updated: 2025/01/29 11:03:16 by mgamraou         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:09:09 by mgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@ void	fill_holder(t_game *game)
 	int	height;
 
 	game->digits[0] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/0.xpm", &width, &height);
+	"./sprites/Fonts/0.xpm", &width, &height);
 	game->digits[1] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/1.xpm", &width, &height);
+	"./sprites/Fonts/1.xpm", &width, &height);
 	game->digits[2] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/2.xpm", &width, &height);
+	"./sprites/Fonts/2.xpm", &width, &height);
 	game->digits[3] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/3.xpm", &width, &height);
+	"./sprites/Fonts/3.xpm", &width, &height);
 	game->digits[4] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/4.xpm", &width, &height);
+	"./sprites/Fonts/4.xpm", &width, &height);
 	game->digits[5] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/5.xpm", &width, &height);
+	"./sprites/Fonts/5.xpm", &width, &height);
 	game->digits[6] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/6.xpm", &width, &height);
+	"./sprites/Fonts/6.xpm", &width, &height);
 	game->digits[7] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/7.xpm", &width, &height);
+	"./sprites/Fonts/7.xpm", &width, &height);
 	game->digits[8] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/8.xpm", &width, &height);
+	"./sprites/Fonts/8.xpm", &width, &height);
 	game->digits[9] = mlx_xpm_file_to_image(game->mlx, \
-	"sprites/Fonts/9.xpm", &width, &height);
+	"./sprites/Fonts/9.xpm", &width, &height);
 }
 
 void	put_digit(t_game *game, int digit, int x, int y)
